@@ -1,5 +1,8 @@
 # cinema
+# Dev
 
+1. Copiar .env.template y renomiar a .env
+2. combinar com as variaveis de retorno (The MovieDb)
 A new Flutter project.
 
 ## Getting Started
