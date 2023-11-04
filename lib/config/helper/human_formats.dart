@@ -1,7 +1,9 @@
 
 
 
- /* class HumanFormats {
+  import 'package:intl/intl.dart';
+
+class HumanFormats {
 
 
   static String number( double number ) {
@@ -15,4 +17,4 @@
     return formattedNumber;
   }
 
-} */
+}

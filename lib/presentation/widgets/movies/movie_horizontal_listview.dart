@@ -2,6 +2,7 @@
 import 'package:cinema/domain/entities/movie.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
+import '../../../config/helper/human_formats.dart';
 
 
 class MovieHorizontalListview extends StatefulWidget {
@@ -129,6 +130,7 @@ class _Slide extends StatelessWidget {
                     style: textStyles.bodyMedium
                         ?.copyWith(color: Colors.yellow.shade800)),
                 const Spacer(),
+                Text(HumanFormats.number(movie.popularity), style: textStyles.bodySmall)
                
               ],
             ),
