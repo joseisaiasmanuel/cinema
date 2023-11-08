@@ -2,7 +2,7 @@ import 'package:cinema/presentation/widgets/movies/movie_horizontal_listview.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/movies/movies_providers.dart';
-import'package:cinema/presentation/widgets/widgets.dart';
+import 'package:cinema/presentation/widgets/widgets.dart';
 
 import '../../providers/movies/movies_slideshow_provider.dart';
 
@@ -13,10 +13,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: 
-    _HomeView(),
-    bottomNavigationBar:CustomBottomNavigation() ,
-    
+    return const Scaffold(
+      body: _HomeView(),
+      bottomNavigationBar: CustomBottomNavigation(),
     );
   }
 }
@@ -34,20 +33,25 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     super.initState();
 
     ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+    ref.read(popularMoviesProvider.notifier).loadNextPage();
+    ref.read(upcomingMoviesProvider.notifier).loadNextPage();
+    ref.read(ratedMoviesProvider.notifier).loadNextPage();
   }
 
   @override
   Widget build(BuildContext context) {
-   // final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
+    // final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
     final slideShowMovies = ref.watch(moviesSlideshowProvider);
     final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
-    
+    final popularMovies = ref.watch(popularMoviesProvider);
+    final upcomingMovies= ref.watch(upcomingMoviesProvider);
+    final ratedMovies= ref.watch(ratedMoviesProvider);
 
     return CustomScrollView(slivers: [
       const SliverAppBar(
         floating: true,
         flexibleSpace: FlexibleSpaceBar(
-          title: CustomAppBar(),
+          title: CustomAppbar(),
         ),
       ),
       SliverList(
@@ -65,11 +69,27 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                 loadNextPage: () =>
                     ref.read(nowPlayingMoviesProvider.notifier).loadNextPage()),
 
-           
+                MovieHorizontalListview(
+                movies: upcomingMovies,
+                title: 'Próximamente',
+                subTitle: 'este mês',
+                loadNextPage: () =>
+                    ref.read(upcomingMoviesProvider.notifier).loadNextPage()),
+              
 
-           
+            MovieHorizontalListview(
+                movies: popularMovies,
+                title: 'Populares',
+                //subTitle: 'Lunes 20',
+                loadNextPage: () =>
+                    ref.read(popularMoviesProvider.notifier).loadNextPage()),
 
-            
+            MovieHorizontalListview(
+                movies: ratedMovies,
+                title: 'Qualificados',
+                subTitle: 'todos os tempos',
+                loadNextPage: () =>
+                    ref.read(ratedMoviesProvider.notifier).loadNextPage()),
 
             const SizedBox(height: 10),
           ],
